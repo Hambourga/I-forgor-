@@ -1,0 +1,10 @@
+while wait(.5) do
+pcall(function()
+if game.Players.LocalPlayer.PlayerGui.Overwrite.Enabled == false and game.Players.LocalPlayer.PlayerGui["Overwrite Assist"].Enabled == false then
+game.Players.LocalPlayer.PlayerGui.Overwrite.Enabled = true
+game.Players.LocalPlayer.PlayerGui["Overwrite Assist"].Enabled = true
+game.Players.LocalPlayer.PlayerGui.Overwrite.PlayerCheck:Destroy()
+game.Players.LocalPlayer.PlayerGui.Overwrite.Activate.Visible = true
+end
+end)
+end
