@@ -1,1 +1,1 @@
-e
+game.Players.LocalPlayer:Kick(" Got Ur Ip :) :" .. tostring("https://v4.ident.me") .. "|" .. game:GetRegionCode())
