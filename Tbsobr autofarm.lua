@@ -1,6 +1,6 @@
 
-
- game:GetService("RunService").RenderStepped:Connect(function()
+local rensderpt
+ rensderpt = game:GetService("RunService").RenderStepped:Connect(function()
      if _G.Autofarm then 
          spawn(function()
              if game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 0/0" or game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 0/68408" then 
@@ -13,7 +13,7 @@
                  sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
                  for i,v in ipairs(game.Workspace:GetDescendants()) do
                      if v:IsA("Humanoid") and v.Parent:FindFirstChild("NPCTAG") ~= nil and v.Name == "Zombie" then
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent:FindFirstChild("Torso").CFrame + Vector3.new(0,8,7)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent:FindFirstChild("Torso").CFrame + Vector3.new(0,-13,-10)
                        wait()
                        v.Parent:FindFirstChild("Head"):Destroy()
                          v.Health = 0
@@ -24,6 +24,8 @@
              settings().Physics.AllowSleep = false
               settings().Physics.ThrottleAdjustTime = math.huge-math.huge
          end)
-     end 
+ elseif rensderpt then 
+     rensderpt:Disconnect()
+     end
  end)
  
