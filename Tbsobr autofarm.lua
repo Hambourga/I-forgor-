@@ -12,7 +12,7 @@ local rensderpt
                  sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
                  for i,v in ipairs(game.Workspace:GetChildren()) do
                      if v:FindFirstChildOfClass("Humanoid") and v:FindFirstChild("NPCTAG") ~= nil and v:FindFirstChild("Zombie") then
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v:FindFirstChild("Torso").CFrame + Vector3.new(0,-10,-9)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v:FindFirstChild("Torso").CFrame + Vector3.new(0,-7,-9)
                        wait()
                        v:FindFirstChild("Head"):Destroy()
                          v.Health = 0
