@@ -1,4 +1,4 @@
-_G.Autofarm =
+
  
  while wait() do
      if _G.Autofarm then 
