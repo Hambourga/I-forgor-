@@ -1,6 +1,9 @@
+
+
+
 local rensderpt
  rensderpt = game:GetService("RunService").RenderStepped:Connect(function()
-     if _G.Autofarm then 
+     if _G.Autofarm and _G.Slectbrlahlah == "Normal" then 
          spawn(function()
              if game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 0/0" or game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 0/68408" then 
                  firetouchinterest(game.Workspace.Start.Part, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
