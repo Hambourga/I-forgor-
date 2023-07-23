@@ -1,4 +1,3 @@
-
 local rensderpt
  rensderpt = game:GetService("RunService").RenderStepped:Connect(function()
      if _G.Autofarm then 
@@ -13,11 +12,12 @@ local rensderpt
                  sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
                  for i,v in ipairs(game.Workspace:GetChildren()) do
                      if v:FindFirstChildOfClass("Humanoid") and v:FindFirstChild("NPCTAG") ~= nil and v:FindFirstChild("Zombie") then
-                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v:FindFirstChild("Torso").CFrame + Vector3.new(0,-13,-10)
+                       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v:FindFirstChild("Torso").CFrame + Vector3.new(0,-10,-9)
                        wait()
                        v:FindFirstChild("Head"):Destroy()
                          v.Health = 0
                          v.MaxHealth = 0
+                         v:FindFirstChild("Zombie").IsDied.Value = true
                      end
                  end
              end 
