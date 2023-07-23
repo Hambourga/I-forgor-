@@ -1,4 +1,4 @@
-_G.Autofarm = false
+
 local rensderpt
  rensderpt = game:GetService("RunService").RenderStepped:Connect(function()
      if _G.Autofarm then 
