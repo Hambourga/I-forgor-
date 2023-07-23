@@ -7,9 +7,9 @@
                  firetouchinterest(game.Workspace.Start.Part, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
                  firetouchinterest(game.Workspace.Start.Part, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
              elseif game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 9/0" then 
-                 fireclickdetector(game.Workspace.SoulKiller.Votes.Detector)
+                 fireclickdetector(game.Workspace.SoulKiller.Votes.ClickDetector)
              else 
-                 setsimulationradius(1000000, 10000000)  
+                 setsimulationradius(100000, 100000)  
                  for i, v in ipairs(game.Workspace:GetDescendants()) do
                      if v:IsA("Humanoid") and not game.Players:GetPlayerFromCharacter(v.Parent) then
                          v.Health = 0
