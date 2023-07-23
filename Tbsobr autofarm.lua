@@ -12,7 +12,6 @@ while wait() do
                      if v:IsA("Humanoid") and not game.Players:GetPlayerFromCharacter(v.Parent) then
                        v.Parent:FindFirstChild("Head"):Destroy()
                          v.Health = 0
-                         v.MaxHealth = 0
                      end
                  end
                  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-116, 30, 518)
