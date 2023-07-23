@@ -6,10 +6,11 @@ while wait() do
                  firetouchinterest(game.Workspace.Start.Part, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
              elseif game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 66/0" then 
                  fireclickdetector(game.Workspace.SoulKiller.Votes.ClickDetector)
-             else 
+            else
                  setsimulationradius(100000, 100000)  
                  for i, v in ipairs(game.Workspace:GetDescendants()) do
                      if v:IsA("Humanoid") and not game.Players:GetPlayerFromCharacter(v.Parent) then
+                       v.Parent:FindFirstChild("Head"):Destroy()
                          v.Health = 0
                          v.MaxHealth = 0
                      end
@@ -18,5 +19,4 @@ while wait() do
              end 
          end)
      end 
- end
- 
+end
