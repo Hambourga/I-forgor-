@@ -1,12 +1,10 @@
-
- 
- while wait() do
+while wait() do
      if _G.Autofarm then 
          spawn(function()
              if game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 0/0" then 
                  firetouchinterest(game.Workspace.Start.Part, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
                  firetouchinterest(game.Workspace.Start.Part, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
-             elseif game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 9/0" then 
+             elseif game.Players.LocalPlayer.PlayerGui["Wave Counter"].WAVE.TextLabel.Text == "Wave: 66/0" then 
                  fireclickdetector(game.Workspace.SoulKiller.Votes.ClickDetector)
              else 
                  setsimulationradius(100000, 100000)  
