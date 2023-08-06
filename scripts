@@ -1284,6 +1284,71 @@ function SolarisLib:New(Config)
                     end
                 end)
 
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "Toggle"
+ScreenGui.Parent = game.CoreGui
+
+local frame = Instance.new("Frame")
+frame.Parent = ScreenGui
+frame.Size = UDim2.new(0, 60, 0, 50)
+frame.Position = UDim2.new(0.5, -400, 0.5, -200)
+frame.Active = true
+
+frame.BackgroundTransparency = 1
+
+local GodMode = Instance.new("TextButton")
+GodMode.Name = "Toggle"
+GodMode.Parent = frame
+
+GodMode.BackgroundColor3 = Color3.fromRGB(0,0,0)
+GodMode.BackgroundTransparency = 0.8
+GodMode.Size = UDim2.new(1, 0, 1, 0)
+GodMode.Font = Enum.Font.Gotham
+GodMode.Text = "Toggler"
+GodMode.TextColor3 = Color3.fromRGB(0, 0, 0)
+GodMode.TextSize = 18
+GodMode.BorderColor3 = Color3.fromRGB(0, 0, 0)
+GodMode.BorderSizePixel = 2
+GodMode.TextScaled = false
+
+local UICorner = Instance.new("UICorner")
+UICorner.Parent = GodMode
+
+local cornerRadius = 10
+UICorner.CornerRadius = UDim.new(0, cornerRadius)
+
+local isDragging = false
+local offset = Vector2.new(0, 0)
+
+GodMode.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        isDragging = true
+        offset = GodMode.Position - UDim2.new(0, input.Position.X, 0, input.Position.Y)
+    end
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if isDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local newPosition = UDim2.new(0, input.Position.X, 0, input.Position.Y) + offset
+        GodMode.Position = newPosition
+    end
+end)
+
+game:GetService("UserInputService").InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        isDragging = false
+    end
+end)
+
+
+GodMode.MouseButton1Click:Connect(function()
+  if Solaris.Enabled == true then 
+Solaris.Enabled = false
+else 
+  Solaris.Enabled = true
+  end
+end)
+
                 function Bind:Set(key)
                     self.Binding = false
                     self.Value = key or self.Value
