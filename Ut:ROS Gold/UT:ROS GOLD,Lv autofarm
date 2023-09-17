@@ -1,0 +1,11 @@
+if game.PlaceId == 8065738280 then 
+  game:GetService("RunService").Heartbeat:Connect(function()
+if game.Players.LocalPlayer.Character:FindFirstChild("SoulStealer3") then
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = game.Players.LocalPlayer.Character:FindFirstChild("SoulStealer3").HumanoidRootPart.CFrame * CFrame.new(0, 0,5) 
+game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Heal").RemoteEvent:FireServer()
+game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Attack").RemoteEvent:FireServer()
+end
+end)
+  else
+    game:GetService("TeleportService"):Teleport(8065738280,game.Players.LocalPlayer)  
+    end
