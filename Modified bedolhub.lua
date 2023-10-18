@@ -5,9 +5,9 @@ wait(4)
 local clientchar = game:GetService("Players").LocalPlayer.Character
 local alive = clientchar.Parent ~= game.Workspace:FindFirstChild("Dead")
 local dead = clientchar.Parent == game.Workspace:FindFirstChild("Dead")
-local parryremote = game:GetService("ReplicatedStorage").Remotes.ParryButtonPress
 local heartbeat = game:GetService("RunService").Heartbeat
 local musicfolder = game:GetService("ReplicatedStorage"):FindFirstChild("Music")
+local remoteparry = game:GetService("ReplicatedStorage").Remotes.ParryButtonPress
 if not _G.NoExecuted then
   _G.NoExecuted = true
   local soundIds = {
@@ -28,7 +28,7 @@ if not _G.NoExecuted then
         forcefieldlol.Transparency = 0.7
         forcefieldlol.CastShadow = false  
         
-    local ScreenGui = Instance.new("ScreenGui")
+                local ScreenGui = Instance.new("ScreenGui")
                 ScreenGui.Name = "ArrayfieldToggelerlroe"
                 ScreenGui.Parent = game.CoreGui.RobloxGui
                 ScreenGui.ClipToDeviceSafeArea = false
@@ -64,7 +64,7 @@ if not _G.NoExecuted then
                 uiGradiente.Offset = Vector2.new(0.5, 0.1)
                 uiGradiente.Parent = frame
                 
-                local isDragging = false
+                            local isDragging = false
                             local startDragPos = nil
                             local draggingTouch = nil
                             local offset = Vector2.new(0, 0)
@@ -93,39 +93,42 @@ if not _G.NoExecuted then
                                     draggingTouch = nil
                                 end
                             end)
-                            
+                
                 local autoblockheartbeat = nil
                 local AutoBlockState = false
                 function SpamBlock()
                     AutoBlockState = not AutoBlockState
                     Toggler.Text = AutoBlockState and "On" or "Off"
-                           if AutoBlockState then
-                      if alive then
+                     if AutoBlockState then
+                       task.spawn(function()
+                      if game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") then
                         autoblockheartbeat = heartbeat:Connect(function()
-                            task.spawn(function()
-                               parryremote:Fire()
-                            end)
-                        end)
-                        end
+                         remoteparry:Fire()
+                       end)
+                      end
+                      end)
                     else
                     if autoblockheartbeat then
                    autoblockheartbeat:Disconnect()
-               end
-                           end
-         if alive then 
+                    end
+             
+                     end
+                task.spawn(function()
+         if game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") then 
 local TweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
 local Tween = game:GetService("TweenService"):Create(game.Workspace:FindFirstChild("Visualizer"), TweenInfo, {Color = AutoBlockState and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(93, 63, 211)})
 Tween:Play()
-                  end
+end
+                  end)
                 end
                 
     Toggler.MouseButton1Click:Connect(SpamBlock)
     for i,v in ipairs(game.Workspace:GetChildren()) do 
+      task.spawn(function()
     if v:IsA("Part") and v.Name == "Part" and v.Material == Enum.Material.ForceField and v.Shape == Enum.PartType.Ball then
-     task.spawn(function()
       v.Name = "Visualizerlolol"
-      end)
-    end 
+      end
+    end)
     end
     
     for i, music in ipairs(musicfolder:GetChildren()) do
@@ -138,7 +141,7 @@ Tween:Play()
     end
     game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Size"):Connect(function()
          task.spawn(function()
-          if (game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState) then
+          if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState then
             local TweenInfoone = TweenInfo.new(0.5, Enum.EasingStyle.Linear,Enum.EasingDirection.InOut)
             local Tweene = game:GetService("TweenService"):Create(game.Workspace:FindFirstChild("Visualizer"), TweenInfoone, {Size = game.Workspace:FindFirstChild("Visualizerlolol").Size})
             Tweene:Play()
@@ -148,7 +151,7 @@ Tween:Play()
        
         game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Position"):Connect(function()
           task.spawn(function()
-         if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState then
+         if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState then
           game.Workspace:FindFirstChild("Visualizer").Position = game.Workspace:FindFirstChild("Visualizerlolol").Position
          end
       end)
@@ -160,11 +163,32 @@ Tween:Play()
             game.Workspace:FindFirstChild("Visualizerlolol").Transparency = 1
            end
           end)
-    end) 
+    end)
+    
 end
 
 for i,v in ipairs(game.Lighting:GetChildren()) do 
   task.spawn(function()
   v:Destroy()
   end)
+ 
+ game.Players.LocalPlayer.Chatted:Connect(function(message)
+message = string.lower(message)
+task.spawn(function()
+if string.find(message,"hideb") then 
+  for i,v in ipairs(game:GetService("CoreGui"):GetChildren()) do
+if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("UserData") then 
+v.Enabled = false
 end
+end
+elseif string.find(message,"showb") then
+  for i,v in ipairs(game:GetService("CoreGui"):GetChildren()) do
+if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("UserData") then 
+v.Enabled = true
+end
+end
+end
+end)
+end)
+end
+
