@@ -1,12 +1,15 @@
+_G.UI_Size = 200
+setfpscap(60)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/-beta-/main/AutoParry.lua"))()
 wait(4)
-task.spawn(function()
-  
-setfpscap(60)
-for i,v in ipairs(game.Lighting:GetChildren()) do 
-  v:Destroy()
-  end
-if not getgenv().Executedlol then 
+local clientchar = game:GetService("Players").LocalPlayer.Character
+local alive = clientchar.Parent ~= game.Workspace:FindFirstChild("Dead")
+local dead = clientchar.Parent == game.Workspace:FindFirstChild("Dead")
+local parryremote = game:GetService("ReplicatedStorage").Remotes.ParryButtonPress
+local heartbeat = game:GetService("RunService").Heartbeat
+local musicfolder = game:GetService("ReplicatedStorage"):FindFirstChild("Music")
+if not _G.NoExecuted then
+  _G.NoExecuted = true
   local soundIds = {
       "rbxassetid://14145625078",
       "rbxassetid://14145625743",
@@ -14,8 +17,8 @@ if not getgenv().Executedlol then
       "rbxassetid://14145618923",
       "rbxassetid://14145627857",
   }
-  if Config["CustomViewPart"] then
-        local forcefieldlol = Instance.new("Part", game.Workspace)
+  
+  local forcefieldlol = Instance.new("Part", game.Workspace)
         forcefieldlol.Name = "Visualizer"
         forcefieldlol.Material = Enum.Material.ForceField
         forcefieldlol.Color = Color3.fromRGB(93, 63, 211)
@@ -24,11 +27,8 @@ if not getgenv().Executedlol then
         forcefieldlol.CanCollide = false 
         forcefieldlol.Transparency = 0.7
         forcefieldlol.CastShadow = false  
-        end
-  getgenv().Executedlol = true
-    if not getgenv().Executedlollol then
-     getgenv().Executedlollol = true
-local ScreenGui = Instance.new("ScreenGui")
+        
+    local ScreenGui = Instance.new("ScreenGui")
                 ScreenGui.Name = "ArrayfieldToggelerlroe"
                 ScreenGui.Parent = game.CoreGui.RobloxGui
                 ScreenGui.ClipToDeviceSafeArea = false
@@ -93,18 +93,14 @@ local ScreenGui = Instance.new("ScreenGui")
                                     draggingTouch = nil
                                 end
                             end)
+                            
                 local autoblockheartbeat = nil
                 local AutoBlockState = false
-               
                 function SpamBlock()
                     AutoBlockState = not AutoBlockState
                     Toggler.Text = AutoBlockState and "On" or "Off"
-                    local clientchar = game.Players.LocalPlayer.Character
-                    local deadzone = game.Workspace:FindFirstChild("Dead")
-                    local heartbeat = game:GetService("RunService").Heartbeat
-                    local parryremote = game:GetService("ReplicatedStorage").Remotes.ParryButtonPress
-                    if AutoBlockState then
-                      if clientchar and clientchar.Parent ~= deadzone then
+                           if AutoBlockState then
+                      if alive then
                         autoblockheartbeat = heartbeat:Connect(function()
                             task.spawn(function()
                                parryremote:Fire()
@@ -112,59 +108,63 @@ local ScreenGui = Instance.new("ScreenGui")
                         end)
                         end
                     else
-                        if autoblockheartbeat then
-                            autoblockheartbeat:Disconnect()
-                        end
-                    end
-                    if game.Workspace:WaitForChild("Visualizer",5) and _G.CustomViewPart then 
+                    if autoblockheartbeat then
+                   autoblockheartbeat:Disconnect()
+               end
+                           end
+         if alive then 
 local TweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
 local Tween = game:GetService("TweenService"):Create(game.Workspace:FindFirstChild("Visualizer"), TweenInfo, {Color = AutoBlockState and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(93, 63, 211)})
 Tween:Play()
                   end
                 end
                 
-                
-                Toggler.MouseButton1Click:Connect(SpamBlock)
-                
-        end        
-
-if Config["Phonkmusic"] then
-  for i, music in ipairs(game:GetService("ReplicatedStorage"):FindFirstChild("Music"):GetChildren()) do
+    Toggler.MouseButton1Click:Connect(SpamBlock)
+    for i,v in ipairs(game.Workspace:GetChildren()) do 
+    if v:IsA("Part") and v.Name == "Part" and v.Material == Enum.Material.ForceField and v.Shape == Enum.PartType.Ball then
+     task.spawn(function()
+      v.Name = "Visualizerlolol"
+      end)
+    end 
+    end
+    
+    for i, music in ipairs(musicfolder:GetChildren()) do
       if music:IsA("Sound") then
+        task.spawn(function()
           local randomIndex = math.random(1, #soundIds)
           music.SoundId = soundIds[randomIndex]
+          end)
       end
-  end
-  end
-  wait(1)
-  if Config["CustomViewPart"] then
-  for i,v in ipairs(game.Workspace:GetChildren()) do 
-    if v:IsA("Part") and v.Name == "Part" and v.Material == Enum.Material.ForceField and v.Shape == Enum.PartType.Ball then
-      v.Name = "Visualizerlolol"
-    end 
-  end
-  wait(1)
-        game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Size"):Connect(function()
-          if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState then
-            local TweenInfoone = TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+    end
+    game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Size"):Connect(function()
+         task.spawn(function()
+          if (game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState) then
+            local TweenInfoone = TweenInfo.new(0.5, Enum.EasingStyle.Linear,Enum.EasingDirection.InOut)
             local Tweene = game:GetService("TweenService"):Create(game.Workspace:FindFirstChild("Visualizer"), TweenInfoone, {Size = game.Workspace:FindFirstChild("Visualizerlolol").Size})
             Tweene:Play()
-            end
+          end
+          end)
         end)
        
         game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Position"):Connect(function()
+          task.spawn(function()
          if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState then
           game.Workspace:FindFirstChild("Visualizer").Position = game.Workspace:FindFirstChild("Visualizerlolol").Position
-        end
+         end
+      end)
       end)
     
-    game:GetService("RunService").Heartbeat:Connect(function()
+    heartbeat:Connect(function()
+      task.spawn(function()
            if game.Workspace:FindFirstChild("Visualizerlolol").Transparency ~= 1 then
             game.Workspace:FindFirstChild("Visualizerlolol").Transparency = 1
-            end
+           end
+          end)
     end) 
-    end
-wait(5)
-getgenv().Executedlol = false
 end
-end)
+
+for i,v in ipairs(game.Lighting:GetChildren()) do 
+  task.spawn(function()
+  v:Destroy()
+  end)
+end
