@@ -1,5 +1,4 @@
 _G.UI_Size = 200
-setfpscap(60)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/-beta-/main/AutoParry.lua"))()
 wait(3)
 local heartbeat = game:GetService("RunService").Heartbeat
@@ -130,14 +129,14 @@ if not _G.Modified then
     end
 
     -- / music \
-    for i, music in ipairs(musicfolder:GetChildren()) do
+   --[[ for i, music in ipairs(musicfolder:GetChildren()) do
         if music:IsA("Sound") then
             task.spawn(function()
                 local randomIndex = math.random(1, #soundIds)
                 music.SoundId = soundIds[randomIndex]
             end)
         end
-    end
+    end]]
 
     -- / viewpart \
    local function visualizersizechange()
@@ -157,24 +156,26 @@ if not _G.Modified then
             end
         end)
     end
-
+   
+   game.Workspace:FindFirstChild("Visualizerlolol").Transparency = 1
     game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Size"):Connect(visualizersizechange)
     game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Position"):Connect(visualizerpositionchange)
-
-    heartbeat:Connect(function()
-        task.spawn(function()
-            if game.Workspace:FindFirstChild("Visualizerlolol").Transparency ~= 1 then
-                game.Workspace:FindFirstChild("Visualizerlolol").Transparency = 1
-            end
-        end)
-    end)
-
+    
+-- / Unlock fps \
+setfpscap(150)
     for i, v in ipairs(game.Lighting:GetChildren()) do 
         task.spawn(function()
             v:Destroy()
         end)
     end
+sethiddenproperty(workspace:FindFirstChildOfClass("Terrain"), "Decoration", false)
+sethiddenproperty(game.Lighting, "Technology", 2)
+game.Lighting.GlobalShadows = false
+game.Lighting.FogEnd = 9e9
+workspace:FindFirstChildOfClass("Terrain").Elasticity = 0
 
+
+-- / hide bedol hub \
     game.Players.LocalPlayer.Chatted:Connect(function(message)
         message = string.lower(message)
         task.spawn(function()
