@@ -43,7 +43,7 @@ if not _G.Modified then
         Toggler.Text = "Off"
         Toggler.TextScaled = true
         Toggler.TextWrapped = true
-        Toggler.TextColor3 = Color3.new(1, 1, 0)
+        Toggler.TextColor3 = Color3.new(1, 0, 0)
         Toggler.Font = Enum.Font.FredokaOne
     
         local UICorner = Instance.new("UICorner")
@@ -92,7 +92,7 @@ if not _G.Modified then
   local function SpamBlock()
         AutoBlockState = not AutoBlockState
         Toggler.Text = AutoBlockState and "On" or "Off"
-
+        Toggler.TextColor3 = AutoBlockState and Color3.new(0,1, 0) or Color3.new(1,0, 0)
         if AutoBlockState then
             task.spawn(function()
                 if game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") then
