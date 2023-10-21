@@ -13,11 +13,9 @@ local tweenservicelol = game:GetService("TweenService")
   
       -- / change part name \
     for i, v in ipairs(game.Workspace:GetChildren()) do 
-        task.spawn(function()
             if v:IsA("Part") and v.Name == "Part" and v.Material == Enum.Material.ForceField and v.Shape == Enum.PartType.Ball then
                 v.Name = "Visualizerlolol"
             end
-        end)
     end
    local visualizerlmao = game.Workspace:FindFirstChild("Visualizerlolol")
 
@@ -108,8 +106,10 @@ local tweenservicelol = game:GetService("TweenService")
       
         if AutoBlockState then
                 if client.Character.Parent ~= deadlol then
+                  task.spawn(function()
                     autoblockheartbeat = heartbeat:Connect(function()
                         remoteparry:Fire()
+                    end)
                     end)
                 end
             
@@ -174,9 +174,9 @@ end
 
 setfpscap(150)
 for i, v in ipairs(game.Lighting:GetChildren()) do 
-        task.spawn(function()
+        
             v:Destroy()
-        end)
+        
     end
 workspace.Terrain:Clear()
 workspace:FindFirstChildOfClass("Terrain").Elasticity = 0
@@ -187,7 +187,7 @@ game.Lighting.FogEnd = 9e9
 
 -- / hide bedol hub \
     game.Players.LocalPlayer.Chatted:Connect(function(message)
-      task.spawn(function()
+      
         message = string.lower(message)
             if string.find(message, "hideb") then 
                 for i, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
@@ -202,7 +202,7 @@ game.Lighting.FogEnd = 9e9
                     end
                 end
             end
-        end)
+       
     end)
 end
   
