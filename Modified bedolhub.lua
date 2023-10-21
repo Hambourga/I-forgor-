@@ -1,12 +1,25 @@
 _G.UI_Size = 200
 loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/-beta-/main/AutoParry.lua"))()
-wait(3)
+wait(1)
+
+if not _G.Modified then
+  _G.Modified = true 
 local heartbeat = game:GetService("RunService").Heartbeat
 local musicfolder = game:GetService("ReplicatedStorage"):FindFirstChild("Music")
 local remoteparry = game:GetService("ReplicatedStorage").Remotes.ParryButtonPress
-
-if not _G.Modified then
-    _G.Modified = true 
+local client = game:GetService("Players").LocalPlayer
+local deadlol = game.Workspace:FindFirstChild("Dead")
+local tweenservicelol = game:GetService("TweenService")
+  
+      -- / change part name \
+    for i, v in ipairs(game.Workspace:GetChildren()) do 
+        task.spawn(function()
+            if v:IsA("Part") and v.Name == "Part" and v.Material == Enum.Material.ForceField and v.Shape == Enum.PartType.Ball then
+                v.Name = "Visualizerlolol"
+            end
+        end)
+    end
+   local visualizerlmao = game.Workspace:FindFirstChild("Visualizerlolol")
 
     -- / ViewPart \
     local forcefieldlol = Instance.new("Part", game.Workspace)
@@ -18,10 +31,10 @@ if not _G.Modified then
     forcefieldlol.CanCollide = false
     forcefieldlol.Transparency = 0.7
     forcefieldlol.CastShadow = false 
-
+    local realvisualizeromg = game.Workspace:FindFirstChild("Visualizer")
     -- / SpamBlock \
     local ScreenGui = Instance.new("ScreenGui")
-        ScreenGui.Name = "ArrayfieldToggelerlroe"
+        ScreenGui.Name = "Spam block"
         ScreenGui.Parent = game.CoreGui.RobloxGui
         ScreenGui.ClipToDeviceSafeArea = false
         ScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
@@ -87,46 +100,42 @@ if not _G.Modified then
 
     local autoblockheartbeat = nil
     local AutoBlockState = false
-
+    
   local function SpamBlock()
         AutoBlockState = not AutoBlockState
         Toggler.Text = AutoBlockState and "On" or "Off"
         Toggler.TextColor3 = AutoBlockState and Color3.new(0,1, 0) or Color3.new(1,0, 0)
+      
         if AutoBlockState then
-            task.spawn(function()
-                if game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") then
+                if client.Character.Parent ~= deadlol then
                     autoblockheartbeat = heartbeat:Connect(function()
                         remoteparry:Fire()
                     end)
                 end
-            end)
+            
         else
             if autoblockheartbeat then
                 autoblockheartbeat:Disconnect()
             end
         end
-
-        task.spawn(function()
-            if game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") then 
-                local TweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-                local Tween = game:GetService("TweenService"):Create(game.Workspace:FindFirstChild("Visualizer"), TweenInfo, {
-                    Color = AutoBlockState and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(93, 63, 211)
-                })
-                Tween:Play()
-            end
-        end)
+      
+     end
+     local function ChangeVisualizerColor()
+    if client.Character.Parent ~= deadlol then
+        local TweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+        local color = AutoBlockState and Color3.new(1,0, 0) or Color3.fromRGB(93, 63, 211)
+        local Tween = tweenservicelol:Create(realvisualizeromg, TweenInfo, { Color = color })
+        Tween:Play()
     end
+end
 
-    Toggler.MouseButton1Click:Connect(SpamBlock)
+       
+    
 
-    -- / change part name \
-    for i, v in ipairs(game.Workspace:GetChildren()) do 
-        task.spawn(function()
-            if v:IsA("Part") and v.Name == "Part" and v.Material == Enum.Material.ForceField and v.Shape == Enum.PartType.Ball then
-                v.Name = "Visualizerlolol"
-            end
-        end)
-    end
+    Toggler.MouseButton1Click:Connect(function()
+      SpamBlock()
+      ChangeVisualizerColor()
+      end)
 
     -- / music \
    --[[ for i, music in ipairs(musicfolder:GetChildren()) do
@@ -141,9 +150,9 @@ if not _G.Modified then
     -- / viewpart \
    local function visualizersizechange()
         task.spawn(function()
-            if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState then
+            if client.Character and client.Character.Parent ~= deadlol and not AutoBlockState then
                 local TweenInfoone = TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-                local Tweene = game:GetService("TweenService"):Create(game.Workspace:FindFirstChild("Visualizer"), TweenInfoone, {Size = game.Workspace:FindFirstChild("Visualizerlolol").Size})
+                local Tweene = tweenservicelol:Create(realvisualizeromg, TweenInfoone, {Size = visualizerlmao.Size})
                 Tweene:Play()
             end
         end)
@@ -151,34 +160,35 @@ if not _G.Modified then
 
    local function visualizerpositionchange()
         task.spawn(function()
-            if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent ~= game.Workspace:FindFirstChild("Dead") and not AutoBlockState then
-                game.Workspace:FindFirstChild("Visualizer").Position = game.Workspace:FindFirstChild("Visualizerlolol").Position
+            if client.Character and client.Character.Parent ~= deadlol and not AutoBlockState then
+                realvisualizeromg.Position = visualizerlmao.Position
             end
         end)
     end
    
-   game.Workspace:FindFirstChild("Visualizerlolol").Transparency = 1
-    game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Size"):Connect(visualizersizechange)
-    game.Workspace:FindFirstChild("Visualizerlolol"):GetPropertyChangedSignal("Position"):Connect(visualizerpositionchange)
+    visualizerlmao.Transparency = 1
+    visualizerlmao:GetPropertyChangedSignal("Size"):Connect(visualizersizechange)
+    visualizerlmao:GetPropertyChangedSignal("Position"):Connect(visualizerpositionchange)
     
 -- / Unlock fps \
+
 setfpscap(150)
-    for i, v in ipairs(game.Lighting:GetChildren()) do 
+for i, v in ipairs(game.Lighting:GetChildren()) do 
         task.spawn(function()
             v:Destroy()
         end)
     end
+workspace.Terrain:Clear()
+workspace:FindFirstChildOfClass("Terrain").Elasticity = 0
 sethiddenproperty(workspace:FindFirstChildOfClass("Terrain"), "Decoration", false)
-sethiddenproperty(game.Lighting, "Technology", 2)
+sethiddenproperty(game.Lighting, "Technology", "Compatibility")
 game.Lighting.GlobalShadows = false
 game.Lighting.FogEnd = 9e9
-workspace:FindFirstChildOfClass("Terrain").Elasticity = 0
-
 
 -- / hide bedol hub \
     game.Players.LocalPlayer.Chatted:Connect(function(message)
+      task.spawn(function()
         message = string.lower(message)
-        task.spawn(function()
             if string.find(message, "hideb") then 
                 for i, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
                     if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("UserData") then 
@@ -195,3 +205,10 @@ workspace:FindFirstChildOfClass("Terrain").Elasticity = 0
         end)
     end)
 end
+  
+  
+  
+  
+  
+  
+ 
