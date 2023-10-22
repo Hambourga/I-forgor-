@@ -42,7 +42,6 @@ local bedolhub = game:GetService("CoreGui"):FindFirstChild("Bedolhub")
     forcefieldlol.CastShadow = false 
     local realvisualizeromg = game.Workspace:FindFirstChild("Visualizer")
     -- / Gui \
-    
     local ScreenGui = Instance.new("ScreenGui")
         ScreenGui.Name = "Every toggler cute gui"
         ScreenGui.Parent = game.CoreGui.RobloxGui
@@ -221,36 +220,35 @@ end)
             task.spawn(function()
                 local randomIndex = math.random(1, #soundIds)
                 music.SoundId = "rbxassetid://" .. soundIds[randomIndex]
-            end)
+             end)
         end
     end
 
     -- / viewpart \
    local function visualizersizechange()
-        task.spawn(function()
-            if client.Character:FindFirstChild("Humanoid").Health ~= 0 and client.Character.Parent ~= deadlol and not AutoBlockState then
+            if  client.Character:FindFirstChild("Humanoid").Health ~= 0 and client.Character.Parent ~= deadlol and not AutoBlockState then
                 local TweenInfoone = TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
                 local Tweene = tweenservicelol:Create(realvisualizeromg, TweenInfoone, {Size = visualizerlmao.Size})
                 Tweene:Play()
             end
-        end)
+        
     end
 
    local function visualizerpositionchange()
-        task.spawn(function()
             if client.Character:FindFirstChild("Humanoid").Health ~= 0 and client.Character.Parent ~= deadlol and not AutoBlockState then
                 realvisualizeromg.Position = visualizerlmao.Position
             end
-        end)
+       
     end
    
     visualizerlmao.Transparency = 1
+    task.spawn(function()
     visualizerlmao:GetPropertyChangedSignal("Size"):Connect(visualizersizechange)
     visualizerlmao:GetPropertyChangedSignal("Position"):Connect(visualizerpositionchange)
-
+end)
 -- / Unlock fps \
 
-setfpscap(150)
+setfpscap(6969)
 for i, v in ipairs(game.Lighting:GetChildren()) do 
             v:Destroy()
     end
@@ -259,7 +257,14 @@ workspace:FindFirstChildOfClass("Terrain").Elasticity = 0
 sethiddenproperty(workspace:FindFirstChildOfClass("Terrain"), "Decoration", false)
 sethiddenproperty(game.Lighting, "Technology", "Compatibility")
 game.Lighting.GlobalShadows = false
-game.Lighting.FogEnd = 9e9
+game.Lighting.FogEnd = math.huge
+-- At this point why you even need dev console 💀
+game:GetService("CoreGui").ChildAdded:Connect(function(devconsole)
+  if devconsole.Name == "DevConsoleMaster" then 
+    devconsole.Enabled = false 
+    game.StarterGui:SetCore( "ChatMakeSystemMessage",  { Text = "[System]: Nuh uh", Color = Color3.fromRGB( 255,0,0 ), Font = Enum.Font.Code, FontSize = Enum.FontSize.Size24 } )
+    end
+  end)
 end
 
 
