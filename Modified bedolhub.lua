@@ -6,9 +6,9 @@ if not _G.Modified then
   _G.Modified = true 
       -- / invisible the close button  and rename it \
   for i, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
-                    if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("ImageButton") then 
-                      v:FindFirstChild("Frame"):FindFirstChild("ImageButton").Visible = false
-                      v.Name = "Bedolhub"
+     if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("ImageButton") then 
+          v:FindFirstChild("Frame"):FindFirstChild("ImageButton").Visible = false
+          v.Name = "Bedolhub"
       end
   end
 -- /just normal variable \
@@ -27,8 +27,6 @@ local bedolhub = game:GetService("CoreGui"):FindFirstChild("Bedolhub")
                 v.Name = "Visualizerlolol"
             end
     end
-
-    
     
    local visualizerlmao = game.Workspace:FindFirstChild("Visualizerlolol")
 
@@ -44,11 +42,12 @@ local bedolhub = game:GetService("CoreGui"):FindFirstChild("Bedolhub")
     forcefieldlol.CastShadow = false 
     local realvisualizeromg = game.Workspace:FindFirstChild("Visualizer")
     -- / Gui \
+    
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "Hider"
-    ScreenGui.Parent = game.CoreGui.RobloxGui
-    ScreenGui.ClipToDeviceSafeArea = false
-    ScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
+        ScreenGui.Name = "Every toggler cute gui"
+        ScreenGui.Parent = game.CoreGui.RobloxGui
+        ScreenGui.ClipToDeviceSafeArea = false
+        ScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
     
     local frame = Instance.new("Frame")
     frame.Parent = ScreenGui
@@ -70,13 +69,6 @@ local bedolhub = game:GetService("CoreGui"):FindFirstChild("Bedolhub")
     local cornerRadius = 7
     UICorner.CornerRadius = UDim.new(0, cornerRadius)
  --
-     
-    local ScreenGui = Instance.new("ScreenGui")
-        ScreenGui.Name = "Spam block"
-        ScreenGui.Parent = game.CoreGui.RobloxGui
-        ScreenGui.ClipToDeviceSafeArea = false
-        ScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
-    
         local frame = Instance.new("Frame")
         frame.Parent = ScreenGui
         frame.Size = UDim2.new(0.062,0,0.08,0)
@@ -107,6 +99,21 @@ local bedolhub = game:GetService("CoreGui"):FindFirstChild("Bedolhub")
         uiGradient.Offset = Vector2.new(0.5, 0.1)
         uiGradient.Parent = frame
    
+local Ping = Instance.new("TextLabel")
+Ping.Name = "Ping"
+Ping.Parent = ScreenGui
+Ping.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Ping.BackgroundTransparency = 1.000
+Ping.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Ping.Position = UDim2.new( 0.7,0, 0.050, 0)
+Ping.Size = UDim2.new(0, 125, 0, 25)
+Ping.Font = Enum.Font.SourceSans
+Ping.TextColor3 = Color3.fromRGB(253, 253, 253)
+Ping.TextScaled = true
+Ping.TextSize = 14.000
+Ping.TextWrapped = true
+
+
     -- / Drag function \
     local isDragging = false
     local startDragPos = nil
@@ -179,7 +186,17 @@ local function hidebutton()
         bedolhub.Enabled = true
            end 
 end
- -- / connect the function to the button \ 
+function checkfps()
+  if game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() >= 100 and game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() < 199 then 
+    Ping.TextColor3 = Color3.fromRGB(255,255,0)
+  elseif game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() >= 200 then 
+    Ping.TextColor3 = Color3.fromRGB(255,0,0)
+    else
+      Ping.TextColor3 = Color3.fromRGB(0,255,0)
+    end
+    Ping.Text = tostring(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
+end
+ -- / connect the function to the button/textlabel \ 
     
     Toggler.MouseButton1Click:Connect(function()
       SpamBlock()
@@ -188,7 +205,9 @@ end
     ImageButton.MouseButton1Click:Connect(function()
       hidebutton()
     end)
-    
+task.spawn(function()
+heartbeat:Connect(checkfps)
+end) 
     -- / music \
     local soundIds = {
       "14145625743",-- Put the id here
@@ -209,7 +228,7 @@ end
     -- / viewpart \
    local function visualizersizechange()
         task.spawn(function()
-            if client.Character and client.Character.Parent ~= deadlol and not AutoBlockState then
+            if client.Character:FindFirstChild("Humanoid").Health ~= 0 and client.Character.Parent ~= deadlol and not AutoBlockState then
                 local TweenInfoone = TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
                 local Tweene = tweenservicelol:Create(realvisualizeromg, TweenInfoone, {Size = visualizerlmao.Size})
                 Tweene:Play()
@@ -219,7 +238,7 @@ end
 
    local function visualizerpositionchange()
         task.spawn(function()
-            if client.Character and client.Character.Parent ~= deadlol and not AutoBlockState then
+            if client.Character:FindFirstChild("Humanoid").Health ~= 0 and client.Character.Parent ~= deadlol and not AutoBlockState then
                 realvisualizeromg.Position = visualizerlmao.Position
             end
         end)
@@ -228,7 +247,7 @@ end
     visualizerlmao.Transparency = 1
     visualizerlmao:GetPropertyChangedSignal("Size"):Connect(visualizersizechange)
     visualizerlmao:GetPropertyChangedSignal("Position"):Connect(visualizerpositionchange)
-    
+
 -- / Unlock fps \
 
 setfpscap(150)
@@ -242,3 +261,8 @@ sethiddenproperty(game.Lighting, "Technology", "Compatibility")
 game.Lighting.GlobalShadows = false
 game.Lighting.FogEnd = 9e9
 end
+
+
+
+
+
