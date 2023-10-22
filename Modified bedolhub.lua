@@ -187,9 +187,9 @@ local function hidebutton()
            end 
 end
 function checkfps()
-  if game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() >= 100 and game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() < 199 then 
+  if game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() >= 150 and game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() < 259 then 
     Ping.TextColor3 = Color3.fromRGB(255,255,0)
-  elseif game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() >= 200 then 
+  elseif game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() >= 260 then 
     Ping.TextColor3 = Color3.fromRGB(255,0,0)
     else
       Ping.TextColor3 = Color3.fromRGB(0,255,0)
