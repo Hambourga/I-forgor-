@@ -1,22 +1,35 @@
-_G.UI_Size = 200
+ _G.UI_Size = 200
 loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/-beta-/main/AutoParry.lua"))()
 wait(1)
 
 if not _G.Modified then
   _G.Modified = true 
+      -- / invisible the close button  and rename it \
+  for i, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
+                    if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("ImageButton") then 
+                      v:FindFirstChild("Frame"):FindFirstChild("ImageButton").Visible = false
+                      v.Name = "Bedolhub"
+      end
+  end
+-- /just normal variable \
+
 local heartbeat = game:GetService("RunService").Heartbeat
 local musicfolder = game:GetService("ReplicatedStorage"):FindFirstChild("Music")
 local remoteparry = game:GetService("ReplicatedStorage").Remotes.ParryButtonPress
 local client = game:GetService("Players").LocalPlayer
 local deadlol = game.Workspace:FindFirstChild("Dead")
 local tweenservicelol = game:GetService("TweenService")
-  
+local bedolhub = game:GetService("CoreGui"):FindFirstChild("Bedolhub")
+
       -- / change part name \
     for i, v in ipairs(game.Workspace:GetChildren()) do 
             if v:IsA("Part") and v.Name == "Part" and v.Material == Enum.Material.ForceField and v.Shape == Enum.PartType.Ball then
                 v.Name = "Visualizerlolol"
             end
     end
+
+    
+    
    local visualizerlmao = game.Workspace:FindFirstChild("Visualizerlolol")
 
     -- / ViewPart \
@@ -30,7 +43,34 @@ local tweenservicelol = game:GetService("TweenService")
     forcefieldlol.Transparency = 0.7
     forcefieldlol.CastShadow = false 
     local realvisualizeromg = game.Workspace:FindFirstChild("Visualizer")
-    -- / SpamBlock \
+    -- / Gui \
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.Name = "Hider"
+    ScreenGui.Parent = game.CoreGui.RobloxGui
+    ScreenGui.ClipToDeviceSafeArea = false
+    ScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
+    
+    local frame = Instance.new("Frame")
+    frame.Parent = ScreenGui
+    frame.Size = UDim2.new(0.034, 0, 0.064, 0) 
+    frame.Position = UDim2.new(0.90, 0, 0.0, 0)
+    frame.Active = true
+    frame.BackgroundTransparency = 0.5
+    frame.BackgroundColor3 = Color3.new(0, 0, 0)
+    
+    local ImageButton = Instance.new("ImageButton")
+    ImageButton.Name = "Hide"
+    ImageButton.Parent = frame
+    ImageButton.Size = UDim2.new(1, 0, 1, 0)
+    ImageButton.BackgroundTransparency = 1
+    ImageButton.Image = "rbxassetid://7733774602"
+
+    local UICorner = Instance.new("UICorner")
+    UICorner.Parent = frame
+    local cornerRadius = 7
+    UICorner.CornerRadius = UDim.new(0, cornerRadius)
+ --
+     
     local ScreenGui = Instance.new("ScreenGui")
         ScreenGui.Name = "Spam block"
         ScreenGui.Parent = game.CoreGui.RobloxGui
@@ -49,7 +89,7 @@ local tweenservicelol = game:GetService("TweenService")
         Toggler.Parent = frame
         Toggler.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
         Toggler.BackgroundTransparency = 1
-        Toggler.Size = UDim2.new(1,0, 1, 0)
+        Toggler.Size = UDim2.new(1,0,1, 0)
         Toggler.Text = "Off"
         Toggler.TextScaled = true
         Toggler.TextWrapped = true
@@ -66,7 +106,8 @@ local tweenservicelol = game:GetService("TweenService")
         uiGradient.Color = ColorSequence.new(Color3.new(0, 0, 0), Color3.new(1, 1, 1))
         uiGradient.Offset = Vector2.new(0.5, 0.1)
         uiGradient.Parent = frame
-
+   
+    -- / Drag function \
     local isDragging = false
     local startDragPos = nil
     local draggingTouch = nil
@@ -95,7 +136,7 @@ local tweenservicelol = game:GetService("TweenService")
             draggingTouch = nil
         end
     end)
-
+-- / the button function \ 
     local autoblockheartbeat = nil
     local AutoBlockState = false
     
@@ -129,14 +170,25 @@ local tweenservicelol = game:GetService("TweenService")
     end
 end
 
-       
+local function hidebutton()
+           if bedolhub.Enabled == true then
+            bedolhub.Enabled = false
+           ImageButton.Image = "rbxassetid://7733774495"
+            else
+        ImageButton.Image = "rbxassetid://7733774602"
+        bedolhub.Enabled = true
+           end 
+end
+ -- / connect the function to the button \ 
     
-
     Toggler.MouseButton1Click:Connect(function()
       SpamBlock()
       ChangeVisualizerColor()
       end)
-
+    ImageButton.MouseButton1Click:Connect(function()
+      hidebutton()
+    end)
+    
     -- / music \
    --[[ for i, music in ipairs(musicfolder:GetChildren()) do
         if music:IsA("Sound") then
@@ -174,9 +226,7 @@ end
 
 setfpscap(150)
 for i, v in ipairs(game.Lighting:GetChildren()) do 
-        
             v:Destroy()
-        
     end
 workspace.Terrain:Clear()
 workspace:FindFirstChildOfClass("Terrain").Elasticity = 0
@@ -184,31 +234,4 @@ sethiddenproperty(workspace:FindFirstChildOfClass("Terrain"), "Decoration", fals
 sethiddenproperty(game.Lighting, "Technology", "Compatibility")
 game.Lighting.GlobalShadows = false
 game.Lighting.FogEnd = 9e9
-
--- / hide bedol hub \
-    game.Players.LocalPlayer.Chatted:Connect(function(message)
-      
-        message = string.lower(message)
-            if string.find(message, "hideb") then 
-                for i, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
-                    if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("UserData") then 
-                        v.Enabled = false
-                    end
-                end
-            elseif string.find(message, "showb") then
-                for i, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
-                    if v.Name == "ScreenGui" and v:FindFirstChild("Frame") and v:FindFirstChild("Frame"):FindFirstChild("UserData") then 
-                        v.Enabled = true
-                    end
-                end
-            end
-       
-    end)
 end
-  
-  
-  
-  
-  
-  
- 
