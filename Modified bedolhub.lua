@@ -1,7 +1,7 @@
  _G.UI_Size = 200
 loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/-beta-/main/AutoParry.lua"))()
 wait(1)
-
+-- i does catogories them so it would be easy to read and does not make anyone dizzy by looking at it
 if not _G.Modified then
   _G.Modified = true 
       -- / invisible the close button  and rename it \
@@ -190,14 +190,21 @@ end
     end)
     
     -- / music \
-   --[[ for i, music in ipairs(musicfolder:GetChildren()) do
+    local soundIds = {
+      "14145625743",-- Put the id here
+      "14145625078",
+      "14145627857",
+      "14145618923",
+      "14145624650",
+      }
+    for i, music in ipairs(musicfolder:GetChildren()) do
         if music:IsA("Sound") then
             task.spawn(function()
                 local randomIndex = math.random(1, #soundIds)
-                music.SoundId = soundIds[randomIndex]
+                music.SoundId = "rbxassetid://" .. soundIds[randomIndex]
             end)
         end
-    end]]
+    end
 
     -- / viewpart \
    local function visualizersizechange()
