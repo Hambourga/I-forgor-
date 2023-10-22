@@ -111,12 +111,12 @@ if not _G.Modified then
     Ping.BackgroundTransparency = 1.000
     Ping.BorderColor3 = Color3.fromRGB(255, 255, 255)
     Ping.Position = UDim2.new(0.7, 0, 0.050, 0)
-    Ping.Size = UDim2.new(0, 125, 0, 25)
+    Ping.Size = UDim2.new(0.1, 0, 0.1, 0)
     Ping.Font = Enum.Font.SourceSans
     Ping.TextColor3 = Color3.fromRGB(253, 253, 253)
-    Ping.TextScaled = true
+    Ping.TextScaled = false
     Ping.TextSize = 14.000
-    Ping.TextWrapped = true
+    Ping.TextWrapped = false
 
     -- / Drag function \
     local isDragging = false
@@ -206,7 +206,7 @@ if not _G.Modified then
         else
             Ping.TextColor3 = Color3.fromRGB(0, 255, 0)
         end
-        Ping.Text = tostring(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
+        Ping.Text = tostring(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()) .. " MS"
     end
     local function visualizersizechange()
         if
@@ -293,7 +293,7 @@ if not _G.Modified then
     sethiddenproperty(game.Lighting, "Technology", "Compatibility")
     game.Lighting.GlobalShadows = false
     game.Lighting.FogEnd = math.huge
-    
+
     -- At this point why you even need dev console 💀
     game:GetService("CoreGui").ChildAdded:Connect(
         function(devconsole)
