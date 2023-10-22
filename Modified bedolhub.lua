@@ -269,7 +269,6 @@ if not _G.Modified then
     -- / music \
     local soundIds = {
         "14145625743",
-         -- Put the id here
         "14145625078",
         "14145627857",
         "14145618923",
@@ -294,6 +293,7 @@ if not _G.Modified then
     sethiddenproperty(game.Lighting, "Technology", "Compatibility")
     game.Lighting.GlobalShadows = false
     game.Lighting.FogEnd = math.huge
+    
     -- At this point why you even need dev console 💀
     game:GetService("CoreGui").ChildAdded:Connect(
         function(devconsole)
