@@ -1,3 +1,38 @@
+local NotificationHolder = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
+local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
+
+if game:GetService("ReplicatedStorage").Security then
+  if game:GetService("ReplicatedStorage").Security.RemoteEvent then
+game:GetService("ReplicatedStorage").Security.RemoteEvent:Destroy()
+end
+if game:GetService("ReplicatedStorage").Security[""] then
+game:GetService("ReplicatedStorage").Security[""]:Destroy()
+end
+game:GetService("ReplicatedStorage").Security:Destroy()
+end 
+Notification:Notify(
+            {
+                Title = "Ac Bypasser",
+                Description = "There is an 80% chance that the AC will be bypassed."
+            },
+            {
+                OutlineColor = Color3.fromRGB(76, 0, 130),
+                Time = 10,
+                Type = "default"
+            }
+        )
+wait(10)
+Notification:Notify(
+            {
+                Title = "Ac Bypasser",
+                Description = "Loaded!"
+            },
+            {
+                OutlineColor = Color3.fromRGB(76, 0, 130),
+                Time = 5,
+                Type = "default"
+            }
+        )
 _G.UI_Size = 200
 loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/-beta-/main/AutoParry.lua"))()
 wait(1)
@@ -43,14 +78,15 @@ if not _G.Modified then
     local deadlol = game.Workspace:FindFirstChild("Dead")
     local tweenservicelol = game:GetService("TweenService")
     local bedolhub = game:GetService("CoreGui"):FindFirstChild("Bedolhub")
-    local visualizerlmao = game.Workspace:FindFirstChild("Visualizerlolol")
+    local visualizerlmao = game.Workspace:FindFirstChild("Visualizerlolol") 
     local realvisualizeromg = game.Workspace:FindFirstChild("Visualizer")
     visualizerlmao.Transparency = 1
-
+    
+    -- / Hold Autoparry \
     -- / Gui \
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "Every toggler cute gui"
-    ScreenGui.Parent = game.CoreGui.RobloxGui
+    ScreenGui.Parent = gethui()
     ScreenGui.ClipToDeviceSafeArea = false
     ScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 
@@ -103,21 +139,50 @@ if not _G.Modified then
     uiGradient.Color = ColorSequence.new(Color3.new(0, 0, 0), Color3.new(1, 1, 1))
     uiGradient.Offset = Vector2.new(0.5, 0.1)
     uiGradient.Parent = frame
+    
+ local UIStroke = Instance.new("UIStroke")
+  UIStroke.Parent = frame
+  UIStroke.Color = Color3.new(0,0,0)  -- Set the color to white
+  UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+  UIStroke.Thickness = 1
 
-    local Ping = Instance.new("TextLabel")
-    Ping.Name = "Ping"
-    Ping.Parent = ScreenGui
-    Ping.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Ping.BackgroundTransparency = 1.000
-    Ping.BorderColor3 = Color3.fromRGB(255, 255, 255)
-    Ping.Position = UDim2.new(0.7, 0, 0.050, 0)
-    Ping.Size = UDim2.new(0.1, 0, 0.1, 0)
-    Ping.Font = Enum.Font.SourceSans
-    Ping.TextColor3 = Color3.fromRGB(253, 253, 253)
-    Ping.TextScaled = false
-    Ping.TextSize = 14.000
-    Ping.TextWrapped = false
+ local framel = Instance.new("Frame")
+framel.Parent = ScreenGui
+framel.Size = UDim2.new(0.13, 0, 0.06, 0)
+framel.Position = UDim2.new(0.7, 0, 0.050, 0)
+framel.Active = true
+framel.BackgroundColor3 = Color3.fromRGB(0,0,0)
 
+local Ping = Instance.new("TextLabel")
+Ping.Name = "Ping"
+Ping.Parent = framel
+Ping.BackgroundColor3 = Color3.fromRGB()
+Ping.BackgroundTransparency = 1
+Ping.BorderColor3 = Color3.fromRGB(255, 255, 255)
+Ping.Size = UDim2.new(1, 0, 1, 0)
+Ping.Font = Enum.Font.SourceSans
+Ping.TextColor3 = Color3.fromRGB(253, 253, 253)
+Ping.TextScaled = false
+Ping.TextSize = 14.000
+Ping.TextWrapped = false
+
+local UICorner = Instance.new("UICorner")
+UICorner.Parent = framel
+local cornerRadius = 10
+UICorner.CornerRadius = UDim.new(0, cornerRadius)
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Parent = framel
+UIStroke.Color = Color3.new(1, 1, 1)  -- Set the color to white
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+UIStroke.Thickness = 1
+
+local uiGradient = Instance.new("UIGradient")
+    uiGradient.Rotation = 65
+    uiGradient.Color = ColorSequence.new(Color3.new(105,105,105), Color3.new(128,128,128))
+    uiGradient.Offset = Vector2.new(0.5, 0.1)
+    uiGradient.Parent = framel
+    
     -- / Drag function \
     local isDragging = false
     local startDragPos = nil
@@ -213,9 +278,7 @@ if not _G.Modified then
             client.Character:FindFirstChild("Humanoid").Health ~= 0 and client.Character.Parent ~= deadlol and
                 not AutoBlockState
          then
-            local TweenInfoone = TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
-            local Tweene = tweenservicelol:Create(realvisualizeromg, TweenInfoone, {Size = visualizerlmao.Size})
-            Tweene:Play()
+            realvisualizeromg.Size = visualizerlmao.Size
         end
     end
 
@@ -312,3 +375,7 @@ if not _G.Modified then
         end
     )
 end
+
+
+
+
