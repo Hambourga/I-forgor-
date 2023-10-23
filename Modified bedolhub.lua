@@ -339,11 +339,11 @@ wait(1)
     )
     -- / music \
     local soundIds = {
-        "14145625743",
-        "14145625078",
-        "14145627857",
-        "14145618923",
-        "14145624650"
+        "1836671677",
+        "9046862738",
+        "9044564552",
+        "9043887091",
+        "9047106878"
     }
     for i, music in ipairs(musicfolder:GetChildren()) do
         if music:IsA("Sound") then
