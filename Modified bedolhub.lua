@@ -1,3 +1,10 @@
+-- i does catogories them so it would be easy to read and does not make anyone dizzy by looking at it
+-- also if you randomly fps drop that is from the game not from this script.
+-- im so suck at making gui
+
+if not _G.Modified then
+    _G.Modified = true
+-- / anti cheat bypass \
 local NotificationHolder =
     loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Module.Lua"))()
 local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
@@ -34,12 +41,12 @@ Notification:Notify(
         Type = "default"
     }
 )
+-- / bedol hub itself \
 _G.UI_Size = 200
 loadstring(game:HttpGet("https://raw.githubusercontent.com/3345-c-a-t-s-u-s/-beta-/main/AutoParry.lua"))()
 wait(1)
--- i does catogories them so it would be easy to read and does not make anyone dizzy by looking at it
-if not _G.Modified then
-    _G.Modified = true
+
+
     -- / invisible the close button  and rename it \
     for i, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
         if
@@ -375,4 +382,5 @@ if not _G.Modified then
             end
         end
     )
+
 end
