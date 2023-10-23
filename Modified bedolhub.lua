@@ -16,7 +16,7 @@ Notification:Notify(
                 Description = "There is an 80% chance that the AC will be bypassed."
             },
             {
-                OutlineColor = Color3.fromRGB(76, 0, 130),
+                OutlineColor = Color3.fromRGB(255,0,0),
                 Time = 10,
                 Type = "default"
             }
@@ -28,7 +28,7 @@ Notification:Notify(
                 Description = "Loaded!"
             },
             {
-                OutlineColor = Color3.fromRGB(76, 0, 130),
+                OutlineColor = Color3.fromRGB(0,255,0),
                 Time = 5,
                 Type = "default"
             }
@@ -68,7 +68,6 @@ if not _G.Modified then
     forcefieldlol.CanCollide = false
     forcefieldlol.Transparency = 0.7
     forcefieldlol.CastShadow = false
-
     -- /just normal variable \
 
     local heartbeat = game:GetService("RunService").Heartbeat
