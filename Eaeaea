@@ -976,84 +976,7 @@ function Unhide()
 	Minimised = false
 	Debounce = false
 end
-function hidemobilebutton()
-  if not getgenv().MobileToggleExecuted then 
-  getgenv().MobileToggleExecuted = true
-local ScreenGui = Instance.new("ScreenGui")
- ScreenGui.Name = "ArrayfieldToggelerlroe"
- ScreenGui.Parent = game.CoreGui.RobloxGui
- ScreenGui.ClipToDeviceSafeArea = false
- ScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
- local frame = Instance.new("Frame")
- frame.Parent = ScreenGui
- frame.Size = UDim2.new(0, 60, 0, 50)
- frame.Position = UDim2.new(0.2, 0, 0.2, 0)
- frame.Active = true
- frame.BackgroundTransparency = 0
- local Toggler = Instance.new("TextButton")
- Toggler.Name = "Toggler"
- Toggler.Parent = frame
- Toggler.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
- Toggler.BackgroundTransparency = 1
- Toggler.Size = UDim2.new(1, 0, 1, 0)
- Toggler.Text = "UI"
- Toggler.TextScaled = true
- Toggler.TextWrapped = true
- Toggler.TextColor3 = Color3.new(1, 1, 0)
- Toggler.Font = Enum.Font.FredokaOne
-        
- local UICorner = Instance.new("UICorner")
- UICorner.Parent = frame
- local cornerRadius = 10
- UICorner.CornerRadius = UDim.new(0, cornerRadius)
-        
- local uiGradiente = Instance.new("UIGradient")
- uiGradiente.Rotation = 65
- uiGradiente.Color = ColorSequence.new(Color3.new(0, 0, 0), Color3.new(255, 255, 255))
- uiGradiente.Offset = Vector2.new(0.5, 0.1)
- uiGradiente.Parent = frame
-        
-        local isDragging = false
-            local startDragPos = nil
-            local draggingTouch = nil
-            local offset = Vector2.new(0, 0)
-            
-            Toggler.InputBegan:Connect(function(input)
-                if input.UserInputType == Enum.UserInputType.Touch then
-                    isDragging = true
-                    startDragPos = input.Position
-                    draggingTouch = input
-                    offset = frame.Position - UDim2.new(0, input.Position.X, 0, input.Position.Y)
-                end
-            end)
-            
-            game:GetService("UserInputService").InputChanged:Connect(function(input)
-                if isDragging and input == draggingTouch then
-                    local newPosition = UDim2.new(0, input.Position.X, 0, input.Position.Y) + offset
-            
-                    frame.Position = newPosition
-                    startDragPos = input.Position
-                end
-            end)
-            
-            game:GetService("UserInputService").InputEnded:Connect(function(input)
-                if input == draggingTouch then
-                    isDragging = false
-                    draggingTouch = nil
-                end
-            end)
-            
-            Toggler.MouseButton1Click:Connect(
-                function() 
-                  if Main.Visible == true then
-                  hide()
-                    else
-                        unhide()
-                    end
-                end
-                )
-                end
-  end
+
 function CloseSearch()
 	Debounce = true
 	TweenService:Create(SearchBar, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {BackgroundTransparency = 1,Size = UDim2.new(0, 460,0, 35)}):Play()
@@ -3708,9 +3631,6 @@ function ArrayFieldLibrary:LoadConfiguration()
 	end
 end
 
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("TouchGui") then 
-  hidemobilebutton()
-end
 
 task.delay(9, ArrayFieldLibrary.LoadConfiguration, ArrayFieldLibrary)
 local ArrayField = ArrayFieldLibrary
