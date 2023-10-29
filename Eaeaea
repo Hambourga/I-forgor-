@@ -3518,39 +3518,85 @@ end,true)
 --]]
 
 local FieldScreen = Instance.new("ScreenGui")
-FieldScreen.DisplayOrder = 100
-FieldScreen.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
-FieldScreen.Name = "Uni" .. tostring(math.random(1000,9999))
-FieldScreen.Parent = gethui and gethui() or game:GetService("CoreGui")
+    FieldScreen.DisplayOrder = 100
+    FieldScreen.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
+    FieldScreen.Name = "Uni" .. tostring(math.random(1000, 9999))
+    FieldScreen.Parent = gethui and gethui() or game:GetService("CoreGui")
+    
+    local UniButton = Instance.new("ImageLabel")
+    UniButton.Name = "UniButton"
+    UniButton.Image = "rbxassetid://9583486345"
+    UniButton.Active = false
+    UniButton.ZIndex = 10
+    UniButton.Position = UDim2.new(0.8, 0, 0, 0)
+    UniButton.BorderSizePixel = 0
+    UniButton.BackgroundTransparency = 1
+    UniButton.Size = UDim2.new(0, 42, 0, 42)
+    UniButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
+    UniButton.Parent = FieldScreen
+    
+    local UniBoxButton = Instance.new("TextButton")
+    UniBoxButton.Name = "UniBoxButton"
+    UniBoxButton.ZIndex = 10
+    UniBoxButton.AnchorPoint = Vector2.new(0.5, 0)
+    UniBoxButton.Position = UDim2.new(0.5, 0, 0, 0)
+    UniBoxButton.Size = UDim2.new(0, 126, 0, 42)
+    UniBoxButton.BorderSizePixel = 0
+    UniBoxButton.BackgroundTransparency = 1
+    UniBoxButton.Text = ""
+    UniBoxButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
+    UniBoxButton.Parent = UniButton
+    
+    local isDragging = false
+    local startDragPos = nil
+    local draggingTouch = nil
+    local offsetbutton = Vector2.new(0, 0)
+    local delayStart = 0 
+    local dragDelay = 2
+    
+    UniBoxButton.InputBegan:Connect(
+        function(input)
+            if input.UserInputType == Enum.UserInputType.Touch then
+                delayStart = tick()
+                startDragPos = input.Position
+                draggingTouch = input
+                offset = UniButton.Position - UDim2.new(0, input.Position.X, 0, input.Position.Y)
+            end
+        end
+    )
+    
+    game:GetService("UserInputService").InputChanged:Connect(
+        function(input)
+            if isDragging and input == draggingTouch then
+                local newPosition = UDim2.new(0, input.Position.X, 0, input.Position.Y) + offset
+                UniButton.Position = newPosition
+                startDragPos = input.Position
+            end
+        end
+    )
+    
+    game:GetService("UserInputService").InputEnded:Connect(
+        function(input)
+            if input == draggingTouch then
+                isDragging = false
+                draggingTouch = nil
+            end
+        end
+    )
+    
 
-local UniButton = Instance.new("ImageLabel")
-UniButton.Name = "UniButton"
-UniButton.Image = "rbxassetid://14958620447"
-UniButton.Active = false
---UniButton.AnchorPoint = Vector2.new(0.5,0.5)
-UniButton.ZIndex = 10
-UniButton.Position = UDim2.new(0.8,0,0,0)
-UniButton.BorderSizePixel = 0
-UniButton.BackgroundTransparency = 1
-UniButton.Size = UDim2.new(0, 42, 0, 42)
-UniButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
-UniButton.Parent = FieldScreen
-
-local UniBoxButton = Instance.new("TextButton")
-UniBoxButton.Name = "UniBoxButton"
---UniBoxButton.AnchorPoint = Vector2.new(0.5,0.5)
-UniBoxButton.ZIndex = 10
-UniBoxButton.AnchorPoint = Vector2.new(0.5, 0)
-UniBoxButton.Position = UDim2.new(0.5, 0, 0, 0)
-UniBoxButton.Size = UDim2.new(0, 126, 0, 42)
-UniBoxButton.BorderSizePixel = 0
-UniBoxButton.BackgroundTransparency = 1
-UniBoxButton.Text = ""
-UniBoxButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
-UniBoxButton.Parent = UniButton
-
-ArrayFieldLibrary.UniButton = UniButton
-
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if delayStart > 0 then
+            local elapsedTime = tick() - delayStart
+            if elapsedTime >= dragDelay then
+                isDragging = true
+                delayStart = 0
+            end
+        end
+    end)
+    
+    
+    
 function ArrayFieldLibrary:Destroy()
 	ArrayField:Destroy()
 	FieldScreen:Destroy()
