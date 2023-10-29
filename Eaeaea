@@ -3555,53 +3555,39 @@ UICorner.CornerRadius = UDim.new(0, cornerRadius)
     UniBoxButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
     UniBoxButton.Parent = UniButton
     
-    local isDragging = false
-    local startDragPos = nil
-    local draggingTouch = nil
-    local offsetbutton = Vector2.new(0, 0)
-    local delayStart = 0 
-    local dragDelay = 2
-    
-    UniBoxButton.InputBegan:Connect(
-        function(input)
-            if input.UserInputType == Enum.UserInputType.Touch then
-                delayStart = tick()
-                startDragPos = input.Position
-                draggingTouch = input
-                offset = UniButton.Position - UDim2.new(0, input.Position.X, 0, input.Position.Y)
+        local isDragging = false
+        local startDragPos = nil
+        local draggingTouch = nil
+        local offsetbutton = Vector2.new(0, 0)
+        UniBoxButton.InputBegan:Connect(
+            function(input)
+                if input.UserInputType == Enum.UserInputType.Touch then
+                    isDragging = true
+                    startDragPos = input.Position
+                    draggingTouch = input
+                    offset = UniButton.Position - UDim2.new(0, input.Position.X, 0, input.Position.Y)
+                end
             end
-        end
-    )
+        )
     
-    game:GetService("UserInputService").InputChanged:Connect(
-        function(input)
-            if isDragging and input == draggingTouch then
-                local newPosition = UDim2.new(0, input.Position.X, 0, input.Position.Y) + offset
-                UniButton.Position = newPosition
-                startDragPos = input.Position
+        game:GetService("UserInputService").InputChanged:Connect(
+            function(input)
+                if isDragging and input == draggingTouch then
+                    local newPosition = UDim2.new(0, input.Position.X, 0, input.Position.Y) + offset
+                    UniButton.Position = newPosition
+                    startDragPos = input.Position
+                end
             end
-        end
-    )
+        )
     
-    game:GetService("UserInputService").InputEnded:Connect(
-        function(input)
-            if input == draggingTouch then
-                isDragging = false
-                draggingTouch = nil
-            end
-        end
-    )
-    
-
-    game:GetService("RunService").Heartbeat:Connect(function()
-        if delayStart > 0 then
-            local elapsedTime = tick() - delayStart
-            if elapsedTime >= dragDelay then
-                isDragging = true
-                delayStart = 0
-            end
-        end
-    end)
+        game:GetService("UserInputService").InputEnded:Connect(
+            function(input)
+                if input == draggingTouch then
+                    isDragging = false
+                    draggingTouch = nil
+                end
+            end 
+          )
     
     
     
