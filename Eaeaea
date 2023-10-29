@@ -3530,11 +3530,18 @@ local FieldScreen = Instance.new("ScreenGui")
     UniButton.ZIndex = 10
     UniButton.Position = UDim2.new(0.8, 0, 0, 0)
     UniButton.BorderSizePixel = 0
-    UniButton.BackgroundTransparency = 1
+    UniButton.BackgroundTransparency = 0.9
+    UniButton.BackgroundColor3 = Color3.new(0,0,0)
     UniButton.Size = UDim2.new(0, 42, 0, 42)
     UniButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
     UniButton.Parent = FieldScreen
     
+local UICorner = Instance.new("UICorner")
+UICorner.Parent = UniButton
+local cornerRadius = 10
+UICorner.CornerRadius = UDim.new(0, cornerRadius)
+
+
     local UniBoxButton = Instance.new("TextButton")
     UniBoxButton.Name = "UniBoxButton"
     UniBoxButton.ZIndex = 10
@@ -3543,7 +3550,7 @@ local FieldScreen = Instance.new("ScreenGui")
     UniBoxButton.Size = UDim2.new(0, 126, 0, 42)
     UniBoxButton.BorderSizePixel = 0
     UniBoxButton.BackgroundColor3 = Color3.new(0,0,0)
-    UniBoxButton.BackgroundTransparency = 0.9
+    UniBoxButton.BackgroundTransparency = 1
     UniBoxButton.Text = ""
     UniBoxButton.SizeConstraint = Enum.SizeConstraint.RelativeXY
     UniBoxButton.Parent = UniButton
